@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Comentar: {{ post.title }}{% endblock %}
+
+{% block content %}
+<section class="form-page">
+  <p class="eyebrow">Novo comentário</p>
+  <h1>{{ post.title }}</h1>
+  <p class="helptext">Publicado em {{ post.pub_date|date:"DATETIME_FORMAT" }}</p>
+
+  <form method="post" class="stacked">
+    {% csrf_token %}
+    {{ form }}
+    <div class="form-actions">
+      <button type="submit" class="btn">Publicar comentário</button>
+      <a href="{% url 'blog:post_detail' post.pk %}">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}
