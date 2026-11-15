@@ -1,0 +1,9 @@
+# Banco de dados local (não vai para o repositório)
+db.sqlite3
+
+# Cache do Python
+__pycache__/
+
+# Ambientes virtuais
+.venv/
+venv/
