@@ -18,5 +18,32 @@
   </div>
 </article>
 
+<section class="comments" id="comentarios">
+  <div class="comments-head">
+    <h2>Comentários ({{ comments|length }})</h2>
+    <a href="{% url 'blog:comment_create' post.pk %}">Comentar em página própria →</a>
+  </div>
+
+  <div class="comment-box">
+    <form method="post" action="{% url 'blog:comment_create' post.pk %}">
+      {% csrf_token %}
+      {{ comment_form }}
+      <button type="submit" class="btn">Publicar comentário</button>
+    </form>
+  </div>
+
+  {% for comment in comments %}
+  <article class="comment">
+    <header>
+      <strong>{{ comment.author.get_full_name|default:comment.author.username }}</strong>
+      <time datetime="{{ comment.pub_date|date:'c' }}">{{ comment.pub_date|date:"DATETIME_FORMAT" }}</time>
+    </header>
+    <p>{{ comment.text|linebreaksbr }}</p>
+  </article>
+  {% empty %}
+  <p class="empty">Nenhum comentário ainda. Seja a primeira pessoa a comentar.</p>
+  {% endfor %}
+</section>
+
 <p class="back"><a href="{% url 'blog:post_list' %}">← Voltar para os posts</a></p>
 {% endblock %}
