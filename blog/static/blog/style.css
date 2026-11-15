@@ -135,6 +135,7 @@ time { color: var(--muted); font-size: .9rem; }
   text-decoration: none;
 }
 .tags a:hover { background: #d3e0cd; }
+.tags .empty { padding: 0; font-size: .85rem; }
 .count { display: inline-block; margin-top: 8px; font-size: .9rem; color: var(--amber); font-weight: 600; }
 
 /* Post individual */

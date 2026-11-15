@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}Posts{% endblock %}
+{% block title %}{% if category %}{{ category.name }}{% else %}Posts{% endif %}{% endblock %}
 
 {% block content %}
 <section class="page-head">
-  <p class="eyebrow">Diário de campo</p>
-  <h1>Histórias por trás de cada foto</h1>
-  <p>Relatos de saídas fotográficas, técnicas e bastidores da fotografia de natureza.</p>
+  {% if category %}
+    <p class="eyebrow">Categoria</p>
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.description }}</p>
+  {% else %}
+    <p class="eyebrow">Diário de campo</p>
+    <h1>Histórias por trás de cada foto</h1>
+    <p>Relatos de saídas fotográficas, técnicas e bastidores da fotografia de natureza.</p>
+  {% endif %}
 </section>
 
 <ul class="post-list">
@@ -15,9 +21,23 @@
     <time datetime="{{ post.pub_date|date:'c' }}">{{ post.pub_date|date:"DATE_FORMAT" }}</time>
     <h2><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h2>
     <p>{{ post.content|striptags|truncatewords:32 }}</p>
+    {% if post.categories.all %}
+    <ul class="tags">
+      {% for cat in post.categories.all %}
+      <li><a href="{% url 'blog:category_detail' cat.pk %}">{{ cat.name }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </li>
   {% empty %}
-  <li class="empty">Nenhum post ainda. <a href="{% url 'blog:post_create' %}">Escreva o primeiro</a>.</li>
+  <li class="empty">
+    {% if category %}Nenhum post nesta categoria ainda.{% else %}Nenhum post ainda.{% endif %}
+    <a href="{% url 'blog:post_create' %}">Escreva um post</a>.
+  </li>
   {% endfor %}
 </ul>
+
+{% if category %}
+<p class="back"><a href="{% url 'blog:category_list' %}">← Todas as categorias</a></p>
+{% endif %}
 {% endblock %}
