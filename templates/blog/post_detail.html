@@ -7,6 +7,13 @@
   <header class="post-head">
     <time datetime="{{ post.pub_date|date:'c' }}">{{ post.pub_date|date:"DATETIME_FORMAT" }}</time>
     <h1>{{ post.title }}</h1>
+    <ul class="tags" aria-label="Categorias">
+      {% for category in post.categories.all %}
+      <li><a href="{% url 'blog:category_detail' category.pk %}">{{ category.name }}</a></li>
+      {% empty %}
+      <li class="empty">Sem categoria</li>
+      {% endfor %}
+    </ul>
     <div class="actions">
       <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-ghost">Editar</a>
       <a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-danger">Remover</a>

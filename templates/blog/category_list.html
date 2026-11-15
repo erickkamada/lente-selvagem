@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Categorias{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <p class="eyebrow">Categorias</p>
+  <h1>Explore por tipo de fotografia</h1>
+  <p>Cada post pode estar em mais de uma categoria.</p>
+</section>
+
+<ul class="category-grid">
+  {% for category in category_list %}
+  <li>
+    <h2><a href="{% url 'blog:category_detail' category.pk %}">{{ category.name }}</a></h2>
+    <p>{{ category.description }}</p>
+    <span class="count">{{ category.num_posts }} post{{ category.num_posts|pluralize }}</span>
+  </li>
+  {% empty %}
+  <li class="empty">Nenhuma categoria cadastrada. Crie categorias pelo <a href="{% url 'admin:index' %}">administrador</a>.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
