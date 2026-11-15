@@ -1,9 +1,10 @@
 """
-Versão 1 das views: apenas views funcionais, sem Django forms
-e sem validação de dados.
+Versão 2 das views: apenas views funcionais, utilizando um Django form
+(PostForm) para validar os dados.
 """
 from django.shortcuts import get_object_or_404, redirect, render
 
+from .forms import PostForm
 from .models import Post
 
 
@@ -20,25 +21,28 @@ def post_detail(request, pk):
 
 
 def post_create(request):
-    """Cria um post a partir dos dados enviados pelo formulário HTML."""
+    """Cria um post. Se o formulário for inválido, ele é exibido com os erros."""
     if request.method == 'POST':
-        post = Post.objects.create(
-            title=request.POST.get('title', ''),
-            content=request.POST.get('content', ''),
-        )
-        return redirect('blog:post_detail', pk=post.pk)
-    return render(request, 'blog/post_form.html')
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save()
+            return redirect('blog:post_detail', pk=post.pk)
+    else:
+        form = PostForm()
+    return render(request, 'blog/post_form.html', {'form': form})
 
 
 def post_update(request, pk):
-    """Edita um post existente."""
+    """Edita um post existente usando o mesmo formulário da criação."""
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
-        post.title = request.POST.get('title', '')
-        post.content = request.POST.get('content', '')
-        post.save()
-        return redirect('blog:post_detail', pk=post.pk)
-    return render(request, 'blog/post_form.html', {'post': post})
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('blog:post_detail', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'blog/post_form.html', {'form': form, 'post': post})
 
 
 def post_delete(request, pk):
