@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <p class="eyebrow">Diário de campo</p>
+  <h1>Histórias por trás de cada foto</h1>
+  <p>Relatos de saídas fotográficas, técnicas e bastidores da fotografia de natureza.</p>
+</section>
+
+<ul class="post-list">
+  {% for post in post_list %}
+  <li class="post-card">
+    <time datetime="{{ post.pub_date|date:'c' }}">{{ post.pub_date|date:"DATE_FORMAT" }}</time>
+    <h2><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h2>
+    <p>{{ post.content|striptags|truncatewords:32 }}</p>
+  </li>
+  {% empty %}
+  <li class="empty">Nenhum post ainda. <a href="{% url 'blog:post_create' %}">Escreva o primeiro</a>.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

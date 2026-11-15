@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<article class="post">
+  <header class="post-head">
+    <time datetime="{{ post.pub_date|date:'c' }}">{{ post.pub_date|date:"DATETIME_FORMAT" }}</time>
+    <h1>{{ post.title }}</h1>
+    <div class="actions">
+      <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-ghost">Editar</a>
+      <a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-danger">Remover</a>
+    </div>
+  </header>
+
+  <div class="post-body">
+    {{ post.content|safe }}
+  </div>
+</article>
+
+<p class="back"><a href="{% url 'blog:post_list' %}">← Voltar para os posts</a></p>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if post %}Editar post{% else %}Novo post{% endif %}{% endblock %}
+
+{% block content %}
+<section class="form-page">
+  <p class="eyebrow">{% if post %}Editar post{% else %}Novo post{% endif %}</p>
+  <h1>{% if post %}{{ post.title }}{% else %}Conte a história da sua foto{% endif %}</h1>
+
+  <form method="post" class="stacked">
+    {% csrf_token %}
+    <div>
+      <label for="title">Título</label>
+      <input type="text" id="title" name="title" value="{{ post.title|default:'' }}">
+    </div>
+    <div>
+      <label for="content">Conteúdo (HTML)</label>
+      <div class="helptext">Aceita HTML, por exemplo as tags p, h3, figure e img.</div>
+      <textarea id="content" name="content" rows="16">{{ post.content|default:'' }}</textarea>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn">Salvar</button>
+      {% if post %}
+        <a href="{% url 'blog:post_detail' post.pk %}">Cancelar</a>
+      {% else %}
+        <a href="{% url 'blog:post_list' %}">Cancelar</a>
+      {% endif %}
+    </div>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,202 @@
+/* Lente Selvagem — estilos do blog */
+
+:root {
+  --bg: #f5f2ea;
+  --surface: #fffdf8;
+  --ink: #1d2a24;
+  --muted: #5d6b63;
+  --line: #ddd6c6;
+  --forest: #1f3a2d;
+  --moss: #3f6b4f;
+  --moss-soft: #e3ebdf;
+  --amber: #b5732e;
+  --danger: #a33a2c;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.65 "Source Sans 3", system-ui, sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 .5em;
+}
+
+a { color: var(--moss); }
+a:hover { color: var(--forest); }
+
+.wrap {
+  width: min(100% - 32px, 880px);
+  margin-inline: auto;
+}
+
+/* Cabeçalho */
+.site-header {
+  background: var(--forest);
+  color: #f1efe6;
+  padding: 18px 0;
+  margin-bottom: 40px;
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.brand {
+  color: #f1efe6;
+  text-decoration: none;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.brand span { color: #e0b77a; }
+.brand small {
+  display: block;
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #b9c7bd;
+}
+.brand:hover { color: #fff; }
+.main-nav { display: flex; align-items: center; gap: 18px; }
+.main-nav a { color: #e6eadf; text-decoration: none; font-weight: 600; }
+.main-nav a:hover { color: #fff; text-decoration: underline; }
+
+/* Botões */
+.btn, button {
+  display: inline-block;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 18px;
+  background: var(--amber);
+  color: #fff;
+  font: 600 .95rem "Source Sans 3", system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+.main-nav .btn { color: #fff; }
+.btn:hover, button:hover { filter: brightness(1.08); color: #fff; text-decoration: none; }
+.btn-ghost { background: transparent; color: var(--moss); border: 1px solid var(--moss); }
+.btn-ghost:hover { background: var(--moss-soft); color: var(--forest); }
+.btn-danger { background: var(--danger); }
+
+/* Cabeçalho das páginas */
+.page-head { margin-bottom: 28px; }
+.page-head h1 { font-size: 2.3rem; }
+.page-head p { color: var(--muted); margin: 0; max-width: 60ch; }
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--amber);
+  font-weight: 600;
+  font-size: .85rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+/* Listagem de posts */
+.post-list, .category-grid { list-style: none; padding: 0; margin: 0; }
+.post-card, .category-grid li {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  margin-bottom: 16px;
+}
+.post-card h2, .category-grid h2 { font-size: 1.45rem; margin: 2px 0 6px; }
+.post-card h2 a, .category-grid h2 a { color: var(--ink); text-decoration: none; }
+.post-card h2 a:hover, .category-grid h2 a:hover { color: var(--moss); }
+.post-card p, .category-grid p { margin: 0; color: var(--muted); }
+time { color: var(--muted); font-size: .9rem; }
+.empty { color: var(--muted); padding: 20px 0; }
+
+/* Chips de categoria */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; }
+.tags a {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--moss-soft);
+  color: var(--forest);
+  font-size: .85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.tags a:hover { background: #d3e0cd; }
+.count { display: inline-block; margin-top: 8px; font-size: .9rem; color: var(--amber); font-weight: 600; }
+
+/* Post individual */
+.post-head { border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 24px; }
+.post-head h1 { font-size: 2.4rem; margin-top: 4px; }
+.actions { display: flex; gap: 10px; margin-top: 14px; }
+.post-body img { width: 100%; height: auto; border-radius: var(--radius); display: block; }
+.post-body figure { margin: 24px 0; }
+.post-body figcaption { font-size: .88rem; color: var(--muted); margin-top: 8px; }
+.post-body h3 { font-size: 1.25rem; margin-top: 1.6em; }
+.back { margin: 32px 0; }
+
+/* Comentários */
+.comments { margin-top: 44px; border-top: 1px solid var(--line); padding-top: 26px; }
+.comments-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.comments-head h2 { font-size: 1.6rem; }
+.comment {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--moss);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+.comment header { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.comment p { margin: 6px 0 0; }
+.comment-box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 16px 0 24px;
+}
+
+/* Formulários */
+.form-page h1 { font-size: 2rem; }
+.form-page.confirm p { color: var(--muted); }
+.stacked > div, .comment-box form > div { margin-bottom: 16px; }
+label { display: block; font-weight: 600; margin-bottom: 4px; }
+input[type="text"], textarea, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  color: var(--ink);
+}
+textarea { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: .92rem; }
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--moss); border-color: var(--moss); }
+.helptext { font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+.errorlist { color: var(--danger); margin: 4px 0; padding-left: 18px; }
+.form-actions { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
+fieldset { border: 0; padding: 0; margin: 0; }
+legend { font-weight: 600; padding: 0; margin-bottom: 6px; }
+#id_categories { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+#id_categories label { font-weight: 400; display: inline-flex; gap: 6px; align-items: center; }
+
+/* Rodapé */
+.site-footer { margin-top: 56px; padding: 26px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+
+@media (max-width: 600px) {
+  .page-head h1, .post-head h1 { font-size: 1.8rem; }
+  .post-card, .category-grid li { padding: 18px; }
+}
