@@ -7,3 +7,6 @@ __pycache__/
 # Ambientes virtuais
 .venv/
 venv/
+
+# Arquivos estáticos gerados pelo collectstatic
+staticfiles/

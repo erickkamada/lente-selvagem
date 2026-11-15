@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: lente-selvagem
+    runtime: python
+    plan: free
+    buildCommand: bash build.sh
+    startCommand: python -m gunicorn config.wsgi:application
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true

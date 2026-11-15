@@ -3,16 +3,27 @@ Configurações do projeto Lente Selvagem.
 
 Referência: https://docs.djangoproject.com/en/5.2/topics/settings/
 """
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Chave de desenvolvimento. Não use esta chave em produção.
-SECRET_KEY = 'django-insecure-b9&tt-m34(cuu#6v4@e4ku&rietj_wxo^8-sm=#i9bdw!%j8u3'
+# No Render a chave vem da variável de ambiente SECRET_KEY.
+# A chave abaixo serve apenas para desenvolvimento local.
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-b9&tt-m34(cuu#6v4@e4ku&rietj_wxo^8-sm=#i9bdw!%j8u3',
+)
 
-DEBUG = True
+# O Render define a variável RENDER; localmente o DEBUG fica ligado.
+DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    CSRF_TRUSTED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
 
 
 # Aplicações
@@ -92,6 +103,8 @@ USE_TZ = True
 # Arquivos estáticos (CSS, JavaScript, imagens)
 
 STATIC_URL = 'static/'
+# Pasta onde o collectstatic reúne os arquivos estáticos para produção
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
